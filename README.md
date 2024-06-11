@@ -24,7 +24,8 @@ Before starting the VM, you need to add a network adapter. You can create multip
 To create a virtual network deployed on the VM, use the NAT node or the Cloud node with a port of the network adapter set to NAT or Bridged (NOT host-only).
 
 ## REST API:
-For REST API documentation, refer to the [REST API Documentation](https://www.gns3.com/community/discussions/this-is-a-gns3-rest-api-documentation-quick-patch)
+For REST API documentation, refer to the [REST API Documentation](https://gns3-server.readthedocs.io/en/stable/endpoints.html)
+[Swagger version](https://gns3-server.readthedocs.io/en/stable/endpoints.html)
 
 
 First check the controller address associated to 3080 port (default port):
@@ -32,6 +33,9 @@ First check the controller address associated to 3080 port (default port):
 ss -tuln
 ```
 To enable/disable the authentification, click edit -> preference ->server -> Protect server with password.
+
+
+GNS3 has a consol. It can be very useful to adjust the debug level and read the log since the UI is using the same API to communicate with the controller.
 
 ## Ressources:
 - [Videos](https://www.youtube.com/watch?v=Ibe3hgP8gCA)
