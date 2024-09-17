@@ -20,8 +20,11 @@ To add docker container, you need first to add the template: click edit -> prefe
 If the Docker image already exists on Docker Hub, GNS3 will pull it for you; otherwise, you need to make sure that the image exists on the VM.
 
 ## Networking
-Before starting the VM, you need to add a network adapter. You can create multiple adapters (you need a NAT adapter).
+To add Host-only Adapter: open virtualbox > you see Tools > on the right most side of tools bar there is a icon of 3 lines > left click it > click option network > click on create
+
+Before starting the VM, you need to add a network adapter. You can create multiple adapters (you should add a NAT adapter  and a bridged adapter is needed too).
 To create a virtual network deployed on the VM, use the NAT node or the Cloud node with a port of the network adapter set to NAT or Bridged (NOT host-only).
+You need to setup local GNS3 Wizard.
 
 ## REST API:
 For REST API documentation, refer to the [REST API Documentation](https://gns3-server.readthedocs.io/en/stable/endpoints.html)
