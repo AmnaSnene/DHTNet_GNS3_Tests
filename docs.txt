@@ -1,0 +1,5 @@
+Most consumer-grade routers typically do not come with OpenWrt pre-installed. Manufacturers usually ship their routers with their own proprietary firmware.
+https://www.websentra.com/open-source-router-os-software/
+https://www.slant.co/topics/6312/~open-source-router-firmware
+https://opensource.com/article/22/7/openwrt-open-source-firmware
+DHCP and DNS configuration: https://openwrt.org/docs/guide-user/base-system/dhcp
