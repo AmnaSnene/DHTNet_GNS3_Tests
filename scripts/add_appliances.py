@@ -2,8 +2,6 @@ import json
 import subprocess
 import requests
 
-
-
 # install https://downloads.openwrt.org/releases/23.05.0/targets/x86/64/openwrt-23.05.0-x86-64-generic-ext4-combined.img.gz
 subprocess.run(["wget", "https://downloads.openwrt.org/releases/23.05.0/targets/x86/64/openwrt-23.05.0-x86-64-generic-ext4-combined.img.gz", "-o", ""])
 subprocess.run(["gunzip", "openwrt-23.05.0-x86-64-generic-ext4-combined.img.gz"])

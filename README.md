@@ -1,53 +1,57 @@
 # GNS3 Tests
 
-GNS3 (Graphical Network Simulator-3) can be used in the context of Jami to create virtual environments to test Jami networking features such as peer discovery, PUPnP, etc. GNS3 is open-source, free software with a large community and complete [documentation](#https://docs.gns3.com/docs/).
+GNS3 (Graphical Network Simulator-3) can be utilized with Jami to create virtual environments for testing Jami networking features such as peer discovery and PUPnP. GNS3 is an open-source, free software with extensive [documentation](#https://docs.gns3.com/docs/).
 
-## SetUp
-GNS3 consists of two components:
-- GUI: Graphical client (There is also a web client but in my understanding it's very limited on linux plateform)
-- Server: The server can be hosted on localhost, a local VM, or a remote virtual machine. The VM was originally introduced for Windows and Mac hosts, but it is recommended to use the VM even on Linux.
+## Setup
+GNS3 comprises two components:
+- GUI: Graphical client (There is also a web client, but it is quite limited on Linux platforms)
+- Server: The server can be hosted on localhost, a local VM, or a remote virtual machine. Although the VM was initially introduced for Windows and Mac hosts, it is recommended to use the VM even on Linux.
 
-The GUI and the VM should be on the same version. To change the VM version, you need to select the upgrade section on the VM and choose the GUI version.
+Ensure the GUI and the VM are on the same version. To change the VM version, go to the upgrade section on the VM and select the GUI version.
 
+To add the VM to your GUI, navigate to edit -> preferences -> GNS3 VM.
 
-To add the VM to your GUI, click  edit -> preference -> GNS3 VM.
+To add the Wizard - server to your GUI (required for Cisco devices), follow this [tutorial](https://docs.gns3.com/docs/getting-started/setup-wizard-local-server).
 
-To add Wizard - server to your GUI (required for cisco devices), fellow this [tutorial](https://docs.gns3.com/docs/getting-started/setup-wizard-local-server).
-
-
-## Add docker container:
-To add docker container, you need first to add the template: click edit -> preference -> Doker container templates -> new
-If the Docker image already exists on Docker Hub, GNS3 will pull it for you; otherwise, you need to make sure that the image exists on the VM.
+## Adding Docker Containers
+To add a Docker container, first add the template: navigate to edit -> preferences -> Docker container templates -> new. If the Docker image is available on Docker Hub, GNS3 will pull it for you; otherwise, ensure the image exists on the VM.
 
 ## Networking
-To add Host-only Adapter: open virtualbox > you see Tools > on the right most side of tools bar there is a icon of 3 lines > left click it > click option network > click on create
+To add a Host-only Adapter: open VirtualBox > go to Tools > click the icon of 3 lines on the rightmost side of the toolbar > click network options > click create.
 
-Before starting the VM, you need to add a network adapter. You can create multiple adapters (you should add a NAT adapter  and a bridged adapter is needed too).
-To create a virtual network deployed on the VM, use the NAT node or the Cloud node with a port of the network adapter set to NAT or Bridged (NOT host-only).
-You need to setup local GNS3 Wizard.
+Before starting the VM, add a network adapter. You can create multiple adapters (a NAT adapter and a bridged adapter are needed). To create a virtual network on the VM, use the NAT node or the Cloud node with a network adapter port set to NAT or Bridged (NOT host-only). Set up the local GNS3 Wizard.
 
-## REST API:
-For REST API documentation, refer to the [REST API Documentation](https://gns3-server.readthedocs.io/en/stable/endpoints.html)
-[Swagger version](https://gns3-server.readthedocs.io/en/stable/endpoints.html)
+Verify the host-only adapter of your VM and obtain its IP address using the command `ip addr show <adapter_name>`. This IP address will be required for the REST API.
 
 
-First check the controller address associated to 3080 port (default port):
+## REST API
+For REST API documentation, refer to the [REST API Documentation](https://gns3-server.readthedocs.io/en/stable/endpoints.html) and the [Swagger version](https://gns3-server.readthedocs.io/en/stable/endpoints.html).
+
+First, check the controller address associated with port 3080 (default port):
 ```sh
 ss -tuln
 ```
-To enable/disable the authentification, click edit -> preference ->server -> Protect server with password.
+To enable/disable authentication, navigate to edit -> preferences -> server -> Protect server with password.
 
+GNS3 has a console that can be very useful for adjusting the debug level and reading logs since the UI uses the same API to communicate with the controller.
 
-GNS3 has a consol. It can be very useful to adjust the debug level and read the log since the UI is using the same API to communicate with the controller.
-
-## Ressources:
+## Resources
 - [Videos](https://www.youtube.com/watch?v=Ibe3hgP8gCA)
 - [API wrapper](https://github.com/davidban77/gns3fy)
 - [Ansible tutorial](https://davidban77.hashnode.dev/automate-your-network-labs-with-ansible-and-gns3-part-2-ck2kprqem00asnos1l89dp07k?source=more_articles_bottom_blogs)
 
-## Establishing Multiple Networks Using a pFsense router
+# Scripts
+In the `scripts` directory, there are three scripts:
 
-By default, the pFsense router allocates port em1 to the primary LAN. To set up an extra LAN, it's necessary to attach a new interface to a port, assign a static IP address and IP range. Remember to activate DHCP for this newly created LAN.
+* `install_gns3.sh`: Installs GNS3 UI, GNS3 VM, adds GNS3 VM to VirtualBox, and integrates the GNS3 VM with GNS3 using the GNS3 REST API.
+* `add_appliances.py`: Adds templates for OpenWrt and Webterm appliances, making them available in the VM for future use. This script uses the REST API.
+* `update_dhtnet_appliances.py`: Creates a project and adds a DHTNet appliance using a Docker URL from GitHub. The template is downloaded and updated in the VM. The script then deletes the project, ensuring the DHTNet appliance is available in the VM for future use.
 
+# OpenWrt
+Setting up UPnP in OpenWrt: [OpenWrt UPnP Setup](https://openwrt.org/docs/guide-user/firewall/upnp/upnp_setup#setting_up_upnp_in_openwrt)
 
-TODO: record video / add more details
+Update the package list and install miniupnpd:
+```sh
+opkg update
+opkg install miniupnpd
+```
