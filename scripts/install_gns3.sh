@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# This script installs GNS3 on Debian-based systems.
+# It also downloads and imports the GNS3 VM into VirtualBox.
+# The GNS3 VM is configured with 4 CPUs, 8GB of RAM, and a NAT adapter.
+# The script also adds the GNS3 VM to GNS3 using the GNS3 REST API.
+# The user is prompted to reboot the system after the installation is complete.
+
 # Update package lists
 echo "Updating package lists..."
 sudo apt-get update

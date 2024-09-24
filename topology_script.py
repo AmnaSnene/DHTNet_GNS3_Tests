@@ -206,23 +206,7 @@ if __name__ == "__main__":
     # cloud_template = next(template for template in appliance_templates if template["name"] == "Cloud")
     # nat_template = next(template for template in appliance_templates if template["name"] == "NAT")
 
-    """
-    Network Structure:
-        LAN2:
-            - Two DHTNet nodes are connected to a switch.
-            - This switch is connected to the pfsense router node via interface em2.
-            - The pfsense router node is connected to the cloud node via interface em1.
-        LAN1:
-            - The same topology as LAN2.
-            - This switch is connected to the pfsense router node via interface em1.
-        WAN:
-            - The pfsense router node is connected to the cloud node via interface em0.
 
-    Scenario:
-        - Test Peer Discovery between DHTNet nodes in LAN1 and LAN2: dht1LAN1 should be able to connect to dht2LAN1 and dht1LAN2 should be able to connect to dht2LAN2.
-        - One node in LAN1 will be moved to LAN2, eg, dht1LAN1 to LAN2: delete link between dht1LAN1 and switch1, create link between dht1LAN1 and switch2.
-        - Test connectivity between dht1LAN1 and dht2LAN1.
-    """
 
 
     node1LAN1 = create_node_from_appliance(project_id, "dht1LAN1", dhtnet_template["template_id"])
